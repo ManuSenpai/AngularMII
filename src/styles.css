@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body, html{
+    height: 100%;
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+h1{
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
