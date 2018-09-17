@@ -1,6 +1,7 @@
 <div class="table-page">
     <input id="searchInput" type="text" [(ngModel)]="newAirlineID" placeholder="{{airlineID.params.airlineID}}">
     <button id="searchButton" class="search-button" (click)="updatePage()">Actualizar</button>
+    <button id="backButton" class="backButton" (click)="goBack()">Volver</button>
     <h1>Tabla de {{airlineID.params.airlineID}}</h1>
     <div class="spinner" *ngIf="!loaded">
         <img src="../../../assets/transparent-gif-spinner-4.gif">

@@ -90,4 +90,8 @@ export class AirlinetableComponent implements OnInit {
     );
   }
 
+  goBack() {
+    this.router.navigate(['/']);
+  }
+
 }

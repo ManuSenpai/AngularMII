@@ -45,6 +45,18 @@ input{
     font-size: 14px;
     border: none;
 }
+.backButton{
+    position: absolute;
+    width: 100px;
+    top: 2vh;
+    right: 4vw;
+    height: 4vh;
+    border-radius: 10px;
+    background-color: indigo;
+    color: white;
+    font-size: 14px;
+    border: none;
+}
 
 .spinner{
     position: absolute;
