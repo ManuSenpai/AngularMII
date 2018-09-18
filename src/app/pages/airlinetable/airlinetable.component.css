@@ -19,7 +19,10 @@ td{
 
 .table-page{
     background-color: darkmagenta;
+    height: 100%;
     height: -webkit-fill-available;
+    height: -moz-available;
+    height: fill-available;
 }
 
 input{

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
@@ -11,11 +10,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     CommonModule,
     TableModule,
     FormsModule,
-    NgForm,
-    AirlinetableComponent,
     HttpClientModule
   ],
-  declarations: []
+  declarations: [ AirlinetableComponent ]
 })
 
 export class AirlinetableModule {
