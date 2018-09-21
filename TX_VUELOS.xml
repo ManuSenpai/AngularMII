@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.sap.com/xMII" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.sap.com/xMII">
+    <!-- Types -->
+    <types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://www.sap.com/xMII">
+            <s:complexType name="InputParams">
+                <s:sequence id="InputSequence">
+                    
+                <s:element maxOccurs="1" minOccurs="0" name="TX_E_AEROLINEA" type="s:string"/></s:sequence>
+            </s:complexType>
+            <s:element name="XacuteRequest">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element maxOccurs="1" minOccurs="0" name="LoginName" type="s:string"/>
+                        <s:element maxOccurs="1" minOccurs="0" name="LoginPassword" type="s:string"/>
+                        <s:element maxOccurs="1" minOccurs="0" name="InputParams" type="s0:InputParams"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="Rowset">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="Row" type="s0:Row"/>
+                </s:sequence>
+                <s:attribute name="Message" type="s:string"/>
+            </s:complexType>
+            <s:complexType name="Row">
+                <s:sequence id="RowSequence">
+                    
+                <s:any maxOccurs="132" minOccurs="1" type="s:string"/></s:sequence>
+            </s:complexType>
+            <s:element name="XacuteResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element maxOccurs="1" minOccurs="0" name="Rowset" type="s0:Rowset"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+        </s:schema>
+    </types>
+    <!-- Messages -->
+    <message name="XacuteSoapIn">
+        <part element="s0:XacuteRequest" name="parameters"/>
+    </message>
+    <message name="XacuteSoapOut">
+        <part element="s0:XacuteResponse" name="parameters"/>
+    </message>
+    <!-- Ports -->
+    <portType name="XacuteWSSoap">
+        <operation name="Xacute">
+            <input message="s0:XacuteSoapIn"/>
+            <output message="s0:XacuteSoapOut"/>
+        </operation>
+    </portType>
+    <!-- Bindings -->
+    <binding name="XacuteWSSoap" type="s0:XacuteWSSoap">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="Xacute">
+            <soap:operation soapAction="http://www.sap.com/xMII" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <!-- Service mapping -->
+    <service name="XacuteWS">
+        <port binding="s0:XacuteWSSoap" name="XacuteWSSoap">
+            <soap:address location="https://cl1-mii.wdf.sap.corp:50001/XMII/SOAPRunner/SAPTOOLS/DEMO_ANGULAR/TX_VUELOS"/>
+        </port>
+    </service>
+</definitions>

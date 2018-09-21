@@ -16,7 +16,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-flight>
-                <tr *ngIf="flight.AIRLANEID === airlineID.params.airlineID">
+                <tr>
                     <td *ngFor="let col of cols">
                         {{flight[col.field]}}
                     </td>

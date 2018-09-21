@@ -3,7 +3,9 @@ import { TableModule } from 'primeng/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxXml2jsonService } from 'ngx-xml2json';
+import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
 import 'rxjs/add/operator/filter';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-airlinetable',
@@ -21,6 +23,7 @@ export class AirlinetableComponent implements OnInit {
   parser: DOMParser;
   loaded: any = false;
   input: any;
+  client: Client;
 
   imports: [ TableModule ];
 
@@ -28,26 +31,27 @@ export class AirlinetableComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private httpClient: HttpClient,
-    private ngxXml2jsonService: NgxXml2jsonService
+    private ngxXml2jsonService: NgxXml2jsonService,
+    private soap: NgxSoapService
   ) {
     this.parser = new DOMParser();
   }
 
   ngOnInit() {
     this.input = document.getElementById('searchInput');
-    this.input.addEventListener('keyup', function(event){
+    this.input.addEventListener('keyup', function(event) {
       event.preventDefault();
-      if(event.keyCode === 13){
+      if (event.keyCode === 13) {
         document.getElementById('searchButton').click();
       }
-    })
+    });
 
     this.route.queryParamMap.subscribe( params => {
       this.airlineID = {...params.keys, ...params};
-      this.httpClient
-      .get('https://raw.githubusercontent.com/ManuSenpai/TestsXML/master/flights.xml',
-       {'responseType':  'text'})
-      .subscribe( (data) => {
+      const body = this.airlineID.params.airlineID;
+      this.httpClient.post('/XMII/Illuminator?QueryTemplate=SAPTOOLS/DEMO_ANGULAR/XQ_VUELOS&Content-Type=text/xml',
+      { 'Param.1': 'AZ' }, {'responseType': 'text'})
+      .subscribe(data => {
         const xml = this.parser.parseFromString(data, 'text/xml');
         const obj = this.ngxXml2jsonService.xmlToJson(xml);
         obj['Rowsets']['Rowset']['Columns']['Column'].forEach( column => {
